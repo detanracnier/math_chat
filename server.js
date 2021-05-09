@@ -11,10 +11,17 @@ const io = require("socket.io")(http, {
   }
 );
 
+let equations = [];
+
 io.on("connection", socket => {
-  console.log("test");
   socket.on("calculate", (equation) => {
-    io.emit("calculate", equation)
+    equations.push(equation);
+    console.log(equations.length,"adding:",equation);
+    io.emit("calculate", equations)
+  })
+  socket.on("initialize", () => {
+    console.log("initializing");
+    io.emit("calculate", equations);
   })
   socket.on('error', function (err) {
     console.log(err);
