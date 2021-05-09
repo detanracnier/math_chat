@@ -1,8 +1,23 @@
 const express = require("express");
 const app = express();
-const http = require("http").createServer(app);
+const server = require("http").createServer(app);
 const PORT = process.env.PORT || 4000;
-const io = require("socket.io")(http, {
+
+app.get('/', function (req, res) {
+  res.sendFile(__dirname + 'client/build/index.html');
+});
+
+if (process.env.NODE_ENV === "production") {
+    console.log("In Production");
+    app.use(express.static("client/build"));
+}
+
+// Start the server
+server.listen(PORT, function () {
+  console.log(`🌎  ==> Socket Server now listening on PORT ${PORT}!`);
+});
+
+const io = require("socket.io")(server, {
     cors: {
       origin: "http://localhost:3000",
       methods: ["GET", "POST"],
@@ -28,7 +43,3 @@ io.on("connection", socket => {
   });
 });
 
-// Start the API server
-http.listen(PORT, function () {
-  console.log(`🌎  ==> Socket Server now listening on PORT ${PORT}!`);
-});
