@@ -3,18 +3,35 @@ import io from "socket.io-client";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const socket = io.connect('http://localhost:4000',
+const socket = io.connect('wss://math-chat-plus.herokuapp.com',
   {
     withCredentials: true,
+    autoConnect: true,
     extraHeaders: {
       "my-custom-header": "abcd"
     }
   });
 
+
 function App() {
 
   const [state, setState] = useState({ left: "", operator: "", right: "", answer: "" });
   const [equations, setEquations] = useState([]);
+
+  socket.on('connect', () => {
+    console.log("Socket connected");
+  })
+  socket.on('disconnect', () => {
+    console.log("Socket disconnect");
+  })
+  socket.on('connect_error', (err) => {
+    console.log("Socket connect_error");
+    console.log(err);
+  })
+  socket.on('reconnect_error', (err) => {
+    console.log("Socket reconnect_error");
+    console.log(err);
+  })
 
   useEffect(() => {
     socket.on("calculate", (equations) => {
@@ -72,7 +89,6 @@ function App() {
   }
 
   const renderEquations = () => {
-    console.log(equations.length);
     let equationsTrim = equations.slice(Math.max(equations.length-10, 0));
     return equationsTrim.map((equation, index) => (
       <div key={index}>
