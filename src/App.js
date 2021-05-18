@@ -84,7 +84,7 @@ function App() {
       default:
     }
     setState({...state, answer: answer});
-    const equationStr = String(equation.right) + equation.operator + String(equation.left) + "=" + String(answer);
+    const equationStr = String(equation.left) + equation.operator + String(equation.right) + "=" + String(answer);
     socket.emit("calculate", equationStr)
   }
 
