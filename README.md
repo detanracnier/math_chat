@@ -18,9 +18,9 @@ Application that features a calculator which shares equation results in a real-t
 ## Deplyed Site 
 [LiveLink](https://detanracnier.github.io/math_chat/). <br/>
 For developer inquisitiveness, clone repo by running the following commad line in your terminal/git bash: 
-`git@github.com:detanracnier/math_chat.git`.
+`git@github.com:detanracnier/math_chat.git`.<br/>
 Server repo can be found:
-[here](https://detanracnier.github.io/math_chat_server/)
+[here](https://github.com/detanracnier/math_chat_server)
 
 To view repo, go to: [Application Repo](https://github.com/detanracnier/math_chat).
 
